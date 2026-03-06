@@ -3,27 +3,31 @@ A full-stack fitness tracking application built with Spring Boot microservices a
 
 📐 Architecture Overview
 
-┌──────────────┐       ┌──────────────────┐       ┌────────────────┐
-│   React UI   │──────▶│   API Gateway    │──────▶│  User Service  │
-│  (Vite/MUI)  │       │  (Spring Cloud)  │       │  (PostgreSQL)  │
-│  :5173       │       │  :8080           │       │  :8083         │
-└──────────────┘       └──────┬───────────┘       └────────────────┘
-                              │
-          ┌───────────────────┼───────────────────┐
-          ▼                                       ▼
-┌──────────────────┐                   ┌───────────────────┐
-│ Activity Service │───── RabbitMQ ──▶│    AI Service      │
-│   (MongoDB)      │     (async msg)   │ (Gemini + MongoDB) │
-│   :8081          │                   │   :8082            │
-└──────────────────┘                   └───────────────────┘
+```text
+┌──────────────┐        ┌──────────────────┐        ┌────────────────┐
+│   React UI   │ ─────▶ │   API Gateway    │ ─────▶ │  User Service  │
+│  (Vite/MUI)  │        │  (Spring Cloud)  │        │  (PostgreSQL)  │
+│    :5173     │        │      :8080       │        │     :8083      │
+└──────────────┘        └────────┬─────────┘        └────────────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              │                                       │
+              ▼                                       ▼
+      ┌──────────────────┐                 ┌───────────────────┐
+      │ Activity Service │ ── RabbitMQ ──▶ │     AI Service    │
+      │    (MongoDB)     │   (async msg)   │ (Gemini + MongoDB)│
+      │      :8081       │                 │       :8082       │
+      └──────────────────┘                 └───────────────────┘
 
-        ┌─────────────────┐     ┌──────────────────┐
-        │  Eureka Server  │     │  Config Server   │
-        │  :8761          │     │  :8888           │
-        └─────────────────┘     └──────────────────┘
-              ▲                        ▲
-              │   Service Discovery    │  Centralized Config
-              └────── all services ────┘
+
+          ┌─────────────────┐        ┌──────────────────┐
+          │  Eureka Server  │        │   Config Server  │
+          │      :8761      │        │       :8888      │
+          └────────▲────────┘        └────────▲─────────┘
+                   │                         │
+                   │  Service Discovery      │ Centralized Config
+                   └─────────── All Services ────────────────┘
+```
 🧩 Services
 Service	Port	Description
 Config Server	8888	Centralized configuration (Spring Cloud Config, native profile)
