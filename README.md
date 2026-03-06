@@ -2,6 +2,7 @@
 A full-stack fitness tracking application built with Spring Boot microservices and a React frontend. Users can log fitness activities, receive AI-powered recommendations (via Google Gemini), and manage their profiles — all secured with Keycloak OAuth 2.0 authentication.
 
 📐 Architecture Overview
+
 ┌──────────────┐       ┌──────────────────┐       ┌────────────────┐
 │   React UI   │──────▶│   API Gateway    │──────▶│  User Service  │
 │  (Vite/MUI)  │       │  (Spring Cloud)  │       │  (PostgreSQL)  │
