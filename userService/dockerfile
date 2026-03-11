@@ -1,5 +1,5 @@
 # Stage 1: Build using standard Maven with JDK 23
-FROM maven:3.9.6-eclipse-temurin-23 AS build
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Copy the pom.xml and source code
@@ -9,8 +9,8 @@ COPY src ./src
 # Build the application
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run the application with JRE 23
-FROM eclipse-temurin:23-jre-jammy
+# Stage 2: Run the application with JRE 21
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
